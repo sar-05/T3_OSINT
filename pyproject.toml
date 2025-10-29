@@ -1,0 +1,11 @@
+[project]
+name = "t3-osint"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "nmapthon2>=0.1.5",
+    "ping3>=5.1.5",
+]
