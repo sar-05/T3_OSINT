@@ -1,6 +1,7 @@
 # Scripts output
 active_scan.json
 active_results.json
+passive_scan.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

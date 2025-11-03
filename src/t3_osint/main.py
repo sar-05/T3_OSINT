@@ -7,12 +7,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from t3_osint import active_scan
-
-
-def passive_scan(ip):
-    """Execute the passive scan."""
-    print(f"Passive scan of {ip} will go here")
+from t3_osint import active_scan, passive_scan
 
 
 def save_scan(scan: dict, path: str):
@@ -39,9 +34,14 @@ def main():
 
     load_dotenv()
     ip = getenv("IP")
+    shodan_key = getenv("SHODAN_KEY")
 
     if not ip:
         print("IP isn't properly defined in .env")
+        return
+
+    if not shodan_key:
+        print("Shodan API key isn't properly defined in .env")
         return
 
     if args.active:
@@ -53,10 +53,13 @@ def main():
             print("Unable to save active scan")
 
     try:
-        save_scan(passive_scan(ip), "passive_scan.json")
+        save_scan(
+            passive_scan(ip=ip, shodan_api="kkRbpnMdZXELYKDgiARUFeo2wIeNIDj5"),
+            "passive_scan.json",
+        )
     # TODO: Add except logic for passive scan
     except:
-        print("Unable to save active scan")
+        print("Unable to save passive scan")
 
 
 if __name__ == "__main__":

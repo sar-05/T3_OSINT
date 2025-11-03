@@ -3,8 +3,9 @@
 import builtwith
 
 
-def consulta_builtwith(url):
+def consulta_builtwith(ip):
     """Devuelve las tecnlogías que usa el sitio web."""
+    url = f"http://{ip}/"
     return builtwith.parse(url)
 
 
