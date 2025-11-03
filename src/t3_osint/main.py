@@ -11,10 +11,13 @@ from t3_osint import active_scan, passive_scan
 
 
 def save_scan(scan: dict, path: str):
-    """Recives a dict and saves it as JSON to a file."""
+    """Receives a dict and saves it as JSON to a file."""
     if scan:
-        with Path(path).open("w", encoding="utf-8") as f:
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        with p.open("w", encoding="utf-8") as f:
             dump(scan, f, indent=4)
+
         print(f"Scan saved to {path}")
 
 
@@ -47,15 +50,15 @@ def main():
     if args.active:
         print(f"Starting active scan of {ip}")
         try:
-            save_scan(active_scan(ip), "active_scan.json")
+            save_scan(active_scan(ip), "out/active_scan.json")
         # TODO: Add except logic for active scan
         except:
             print("Unable to save active scan")
 
     try:
         save_scan(
-            passive_scan(ip=ip, shodan_api="kkRbpnMdZXELYKDgiARUFeo2wIeNIDj5"),
-            "passive_scan.json",
+            passive_scan(ip=ip, shodan_key=shodan_key),
+            "out/passive_scan.json",
         )
     # TODO: Add except logic for passive scan
     except:
