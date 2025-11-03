@@ -1,15 +1,14 @@
-"""Utility functions and classes for calculating speed."""
-import json
+"""Consultas a ipwhois."""
 
-from ipwhois import IPWhois  # pyright: ignore[reportMissingImports]
+from ipwhois import IPWhois
 
 
-def consulta_whois(dominio, salida=r"whois_py\whois.json"):
-    """Consult functions and classes for calculating speed."""
+def consulta_whois(dominio):
+    """Retorna propiedades de el servidor que aloja al sitio."""
     objetivo = IPWhois(dominio)
     resultado = objetivo.lookup_rdap()
 
-    datos_ipwhois = {
+    return {
         "asn_registry": resultado["asn_registry"],
         "asn": resultado["asn"],
         "asn_cidr": resultado["asn_cidr"],
@@ -22,10 +21,8 @@ def consulta_whois(dominio, salida=r"whois_py\whois.json"):
         "ip_version": resultado["network"]["ip_version"],
     }
 
-    with open(salida, "w", encoding="utf-8") as f:  # noqa: PTH123
-        json.dump(datos_ipwhois, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
     dominio = "146.190.113.171"
     resultado = consulta_whois(dominio)
-    print("Información IPWHOIS guardada en JSON")
+    print(resultado)

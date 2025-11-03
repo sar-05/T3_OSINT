@@ -7,7 +7,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from active_scan import active_scan
+from t3_osint import active_scan
 
 
 def passive_scan(ip):
